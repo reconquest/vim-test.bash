@@ -4,12 +4,21 @@ source $_base_dir/vendor/github.com/reconquest/tmux.bash/tmux.bash
 vim-tests:start() {
     local session=$1
 
-    cat > .vimrc
+    {
+        echo "set nocompatible"
+        echo "au VimEnter * silent !touch .$session-ready"
+        echo
+        cat
+    } > .vimrc
 
     tests:debug "vimrc"
     _tests_indent "vimrc" "<empty>" < .vimrc
 
     tmux:new-session "$session" "vim" -u .vimrc -U NONE
+
+    while [ ! -e .$session-ready ]; do
+        :
+    done
 }
 
 vim-tests:end() {
@@ -36,4 +45,8 @@ vim-tests:write-file() {
     local filename=$2
 
     vim-tests:type "$session" "escape" "escape" ":w $filename" "enter"
+
+    while [ ! -e $filename ]; do
+        :
+    done
 }
