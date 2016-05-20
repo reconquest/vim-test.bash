@@ -21,6 +21,10 @@ vim-tests:start() {
     done
 }
 
+vim-tests:end-silent() {
+    vim-tests:end "${@}" 2>/dev/null || true
+}
+
 vim-tests:end() {
     vim-tests:type "escape" "escape" ":qa!"
 
