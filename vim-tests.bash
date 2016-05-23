@@ -32,7 +32,7 @@ vim-tests:end() {
 }
 
 vim-tests:get-rtp() {
-    find "$1" -type d -mindepth 1 -maxdepth 1 | paste -sd,
+    find "$1" -mindepth 1 -maxdepth 1 -type d | paste -sd,
 }
 
 vim-tests:type() {
