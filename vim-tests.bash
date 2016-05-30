@@ -39,9 +39,7 @@ vim-tests:type() {
     local session=$1
     shift
 
-    for keys in "${@}"; do
-        tmux:send "$session" "$keys"
-    done
+    tmux:send "$session" "${@}"
 }
 
 vim-tests:write-file() {
