@@ -16,20 +16,20 @@ PY
 
 tests:eval tree ../.vim
 
-vim-tests:start "$_vim_session" <<VIMRC
-set rtp+=$(vim-tests:get-rtp $(tests:get-tmp-dir)/.vim/bundle)
+vim-test:start "$_vim_session" <<VIMRC
+set rtp+=$(vim-test:get-rtp $(tests:get-tmp-dir)/.vim/bundle)
 VIMRC
 
-vim-tests:type "$_vim_session" ":call plugin_a#X()" "enter"
+vim-test:type "$_vim_session" ":call plugin_a#X()" "enter"
 
-vim-tests:type "$_vim_session" "ix the movie" "escape"
-vim-tests:type "$_vim_session" ":py import b; b.x()" "enter"
+vim-test:type "$_vim_session" "ix the movie" "escape"
+vim-test:type "$_vim_session" ":py import b; b.x()" "enter"
 
 tests:eval tmux:cat-screen "$_vim_session"
 
-vim-tests:write-file "$_vim_session" "movie"
+vim-test:write-file "$_vim_session" "movie"
 
 tests:eval "cat movie"
 tests:assert-stdout "x-men the movie: rise of phoenix"
 
-vim-tests:end "$_vim_session"
+vim-test:end "$_vim_session"
