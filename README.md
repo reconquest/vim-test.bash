@@ -7,7 +7,7 @@ Framework for testing vim plugins.
 ## Via [import.bash](https://git.rn/reconquest/import.bash)
 
 ```
-import:source "github.com/reconquest/vim-test.bash"
+import:use "github.com/reconquest/vim-test.bash"
 ```
 
 # Writing testcases
