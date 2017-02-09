@@ -1,5 +1,7 @@
 _base_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
-source $_base_dir/vendor/github.com/reconquest/tmux.bash/tmux.bash
+source $_base_dir/vendor/github.com/reconquest/import.bash/import.bash
+
+import:use github.com/reconquest/tmux.bash
 
 vim-tests:start() {
     local session=$1
