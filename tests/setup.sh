@@ -1,5 +1,5 @@
 tests:clone vendor .
-tests:involve vim-test.bash
+tests:involve vim-tests.bash
 
 tests:make-tmp-dir ".vim/bundle"
 
