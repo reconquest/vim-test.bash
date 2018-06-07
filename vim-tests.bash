@@ -28,7 +28,8 @@ vim-tests:end-silent() {
 }
 
 vim-tests:end() {
-    vim-tests:type "escape" "escape" ":qa!"
+    local session=$1
+    vim-tests:type "$session" "escape" "escape" ":qa!"
 
     tmux:kill-session "$1"
 }
