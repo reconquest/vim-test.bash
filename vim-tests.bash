@@ -9,6 +9,7 @@ vim-tests:start() {
     {
         echo "set nocompatible"
         echo "au VimEnter * silent !touch .$session-ready"
+        echo "au VimEnter * set verbosefile=.$session-messages"
         echo
         cat
     } > .vimrc
@@ -54,4 +55,14 @@ vim-tests:write-file() {
     while [ ! -e $filename ]; do
         :
     done
+}
+
+vim-tests:get-messages() {
+    local session=$1
+
+    vim-tests:type "$session" "escape" "escape" \
+        ":set verbosefile=.$session-messages" \
+        "enter"
+
+    cat .$session-messages
 }
