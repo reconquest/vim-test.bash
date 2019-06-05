@@ -1,5 +1,7 @@
-_base_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
-source $_base_dir/vendor/github.com/reconquest/import.bash/import.bash
+if ! declare -f import:use &>/dev/null; then
+    _base_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+    source $_base_dir/vendor/github.com/reconquest/import.bash/import.bash
+fi
 
 import:use github.com/reconquest/tmux.bash
 
@@ -9,9 +11,9 @@ vim-tests:start() {
     {
         echo "set nocompatible"
         echo "au VimEnter * silent !touch .$session-ready"
-        echo "au VimEnter * set verbosefile=.$session-messages"
         echo
         cat
+        echo "set nomore"
     } > .vimrc
 
     tests:debug "vimrc"
@@ -61,7 +63,9 @@ vim-tests:get-messages() {
     local session=$1
 
     vim-tests:type "$session" "escape" "escape" \
-        ":set verbosefile=.$session-messages" \
+        ":let @q=execute('messages')" \
+        "enter" \
+        ":call writefile(getreg('q', 1, 1), '.$session-messages')" \
         "enter"
 
     cat .$session-messages
